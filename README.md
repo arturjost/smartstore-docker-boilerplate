@@ -1,7 +1,7 @@
 # Smartstore Docker Environment (Traefik + PostgreSQL)
 🐳 Docker Compose setup for a local Smartstore environment with Traefik and PostgreSQL.
-This repository provides a ready-to-run configuration to quickly launch a complete development environment for Smartstore locally using Docker Compose. 
-Perfect for testing, developing, and debugging Smartstore applications.
+This repository provides a ready-to-run configuration to quickly launch a complete environment for Smartstore locally using Docker Compose. 
+Perfect for testing, developing, and debugging Smartstore.
 
 ---
 
@@ -29,10 +29,11 @@ Perfect for testing, developing, and debugging Smartstore applications.
 ## 🚀 Getting Started / Setup
 
 1.  **Clone & Navigate to the repository**
-   ```bash
-   git clone https://github.com/arturjost/smartstore-docker-boilerplate.git
-   cd (path)/smartstore-docker-boilerplate
-   ```
+   Start all services in the background:
+    ```bash
+    git clone https://github.com/arturjost/smartstore-docker-boilerplate.git
+    cd (path)/smartstore-docker-boilerplate
+    ```
 2.  **Start containers**
     Start all services in the background:
     ```bash
