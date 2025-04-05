@@ -28,7 +28,11 @@ Perfect for testing, developing, and debugging Smartstore applications.
 
 ## 🚀 Getting Started / Setup
 
-1.  **Clone the repository**
+1.  **Clone & Navigate to the repository**
+   ```bash
+   git clone https://github.com/arturjost/smartstore-docker-boilerplate.git
+   cd (path)/smartstore-docker-boilerplate
+   ```
 2.  **Start containers**
     Start all services in the background:
     ```bash
@@ -68,7 +72,7 @@ After the containers have started (you can check the status with `docker compose
 
 * The main configuration is done via `docker-compose.yml` file.
 * PostgreSQL credentials are sourced from the `docker-compose.yml` file.
-* The hostname for Smartstore is set to `localhost` in the Traefik labels within `docker-compose.yml` (`Host(\`localhost\`)`).
+* The hostname for Smartstore is set to `localhost` in the Traefik labels within `docker-compose.yml` (Host(\`localhost\`)).
 
 ---
 
