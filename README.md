@@ -10,8 +10,7 @@ Perfect for testing, developing, and debugging Smartstore applications.
 * **Database:** PostgreSQL `16`.
 * **Reverse Proxy:** Traefik `v2.11` for easy routing.
 * **HTTPS:** Local HTTPS for `localhost` via **automatically generated self-signed certificates by Traefik**.
-* **API Ready:** Configuration for `Forwarded Headers` is enabled (`ASPNETCORE_FORWARDEDHEADERS_ENABLED=true`),
-* allowing Smartstore to work correctly behind the proxy (important for API calls).
+* **API Ready:** Configuration for `Forwarded Headers` is enabled (`ASPNETCORE_FORWARDEDHEADERS_ENABLED=true`), allowing Smartstore to work correctly behind the proxy (important for API calls).
 * **Traefik Dashboard:** Enabled for insights into routing (Default: `http://localhost:8080`).
 
 ---
