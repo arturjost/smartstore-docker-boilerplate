@@ -1,4 +1,4 @@
-# Smartstore Docker Development Environment (Traefik + PostgreSQL)
+# Smartstore Docker Environment (Traefik + PostgreSQL)
 🐳 Docker Compose setup for a local Smartstore environment with Traefik and PostgreSQL.
 This repository provides a ready-to-run configuration to quickly launch a complete development environment for Smartstore locally using Docker Compose. 
 Perfect for testing, developing, and debugging Smartstore applications.
