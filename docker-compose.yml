@@ -1,0 +1,81 @@
+version: '3.8'
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: smartstore_traefik 
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "80:80"   
+      - "443:443" 
+      - "8080:8080"
+    volumes:
+      # Podman - "/run/podman/podman.sock:/var/run/docker.sock:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - smartstore_network
+    command:
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=smartstore_network"
+
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+
+  smartstore:
+    image: ghcr.io/smartstore/smartstore-linux:nightly
+    container_name: smartstore_nightly
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - smartstore_data:/app
+    networks:
+      - smartstore_network
+    environment:
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+    expose: 
+      - 80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.smartstore_https.rule=Host(`localhost`)"
+      - "traefik.http.routers.smartstore_https.entrypoints=websecure"
+      - "traefik.http.routers.smartstore_https.tls=true"
+      - "traefik.http.services.smartstore_svc.loadbalancer.server.port=80"
+
+  postgres:
+    image: postgres:16
+    container_name: smartstore_postgres 
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-mydatabase}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - smartstore_network
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-user} -d ${POSTGRES_DB:-mydatabase}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  smartstore_data: {}
+  postgres_data: {}
+
+networks:
+  smartstore_network:
+    driver: bridge
+    name: smartstore_network
